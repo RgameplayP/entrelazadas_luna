@@ -1,0 +1,139 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  background-color: #F5EDE0;
+  color: #4A2A0E;
+}
+
+/* Modo Oscuro Global - estilo artesanal */
+body.dark-mode {
+  background-color: #1a1210 !important;
+  color: #E8DCC8 !important;
+}
+
+body.dark-mode .dark-mode-bg {
+  background-color: #1a1210 !important;
+}
+
+/* Fondo de páginas en modo oscuro */
+body.dark-mode .home-container,
+body.dark-mode .category-container,
+body.dark-mode .product-container,
+body.dark-mode [style*="backgroundColor: #F5EDE0"] {
+  background-color: #1a1210 !important;
+}
+
+/* Tarjetas en modo oscuro */
+body.dark-mode .product-card,
+body.dark-mode [style*="backgroundColor: '#FFFDF9'"],
+body.dark-mode [style*="backgroundColor: 'white"] {
+  background-color: #2a1f1a !important;
+  border: 1px solid #6B3E1B !important;
+}
+
+/* Texto en modo oscuro */
+body.dark-mode h1,
+body.dark-mode h2,
+body.dark-mode h3,
+body.dark-mode p,
+body.dark-mode span,
+body.dark-mode label {
+  color: #E8DCC8 !important;
+}
+
+body.dark-mode .text-muted {
+  color: #b8a89a !important;
+}
+
+/* Botones y elementos decorativos */
+body.dark-mode .dark-button {
+  background-color: #6B3E1B !important;
+}
+
+body.dark-mode .whatsapp-button {
+  background-color: #075E54 !important;
+}
+
+/* Scrollbar modo oscuro */
+body.dark-mode ::-webkit-scrollbar-track {
+  background: #2a1f1a !important;
+}
+
+body.dark-mode ::-webkit-scrollbar-thumb {
+  background: #6B3E1B !important;
+}
+
+/* Scrollbar modo claro */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #EDE0D0;
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #A05A2C;
+  border-radius: 5px;
+}
+
+/* Sección de características */
+body.dark-mode .features-badge {
+  background-color: #3a2a1a !important;
+  color: #E8DCC8 !important;
+}
+
+/* ===== BOTÓN ARTESANAL SIMPLIFICADO (SOLO WHATSAPP) ===== */
+.artisan-btn {
+  width: 100%;
+  padding: 12px 20px;
+  background: linear-gradient(135deg, #25D366 0%, #128C7E 100%);
+  font-size: 16px;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  border: none;
+  border-radius: 10px;
+  transition: all 0.3s ease;
+  font-family: 'Georgia', serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.artisan-btn:hover {
+  background: linear-gradient(135deg, #128C7E 0%, #075E54 100%);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Responsive para móvil */
+@media (max-width: 768px) {
+  .artisan-btn {
+    padding: 10px 16px;
+    font-size: 14px;
+  }
+}
+
+/* ===== AISLAMIENTO DEL ADMIN (EVITA EL FONDO CREMA) ===== */
+body:has(.admin-panel) {
+  background-color: #f5f5f5 !important;
+}
+
+body:has(.admin-panel) .admin-panel,
+body:has(.admin-panel) .admin-panel * {
+  background-color: initial;
+}
+
+body:has(.admin-panel) .admin-panel {
+  background-color: #f5f5f5 !important;
+}

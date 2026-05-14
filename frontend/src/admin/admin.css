@@ -1,0 +1,357 @@
+/* RESET COMPLETO PARA EL ADMIN - SIN SUPERPOSICIONES */
+.admin-panel {
+  display: block !important;
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-color: #f5f5f5 !important;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif !important;
+  overflow-y: auto !important;
+  z-index: 999999 !important;
+}
+
+/* Forzar fondo blanco en todos los elementos del admin */
+.admin-panel,
+.admin-panel div,
+.admin-panel section,
+.admin-panel header,
+.admin-panel main,
+.admin-panel footer,
+.admin-panel form,
+.admin-panel article {
+  background-color: #f5f5f5 !important;
+}
+
+/* Header */
+.admin-header {
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+  background-color: #2c3e50 !important;
+  padding: 15px 20px !important;
+  position: sticky !important;
+  top: 0 !important;
+  z-index: 100 !important;
+  margin: 0 !important;
+}
+
+.admin-header h2 {
+  color: white !important;
+  font-size: 20px !important;
+  margin: 0 !important;
+  font-weight: normal !important;
+  background: transparent !important;
+}
+
+.admin-header button {
+  background-color: #e74c3c !important;
+  color: white !important;
+  border: none !important;
+  padding: 8px 16px !important;
+  border-radius: 5px !important;
+  cursor: pointer !important;
+  font-size: 14px !important;
+}
+
+/* Contenedor principal */
+.admin-container {
+  max-width: 1400px !important;
+  margin: 0 auto !important;
+  padding: 20px !important;
+  background: transparent !important;
+}
+
+/* Formulario */
+.admin-form-container {
+  background-color: white !important;
+  border-radius: 10px !important;
+  padding: 20px !important;
+  margin-bottom: 30px !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
+}
+
+.admin-form-container h3 {
+  color: #2c3e50 !important;
+  font-size: 18px !important;
+  margin-bottom: 20px !important;
+  font-weight: bold !important;
+  background: transparent !important;
+}
+
+/* Grid del formulario */
+.admin-form-grid {
+  display: grid !important;
+  grid-template-columns: 1fr 1fr !important;
+  gap: 15px !important;
+  margin-bottom: 15px !important;
+}
+
+.admin-form-group {
+  margin-bottom: 15px !important;
+}
+
+.admin-form-group label {
+  display: block !important;
+  margin-bottom: 5px !important;
+  font-weight: bold !important;
+  color: #333 !important;
+  font-size: 14px !important;
+}
+
+.admin-form-group input,
+.admin-form-group select,
+.admin-form-group textarea {
+  width: 100% !important;
+  padding: 10px !important;
+  border: 1px solid #ddd !important;
+  border-radius: 5px !important;
+  font-size: 14px !important;
+  background-color: white !important;
+  color: #333 !important;
+}
+
+/* Imágenes */
+.admin-images-group {
+  margin-top: 15px !important;
+}
+
+.admin-images-group label {
+  display: block !important;
+  margin-bottom: 5px !important;
+  font-weight: bold !important;
+  color: #333 !important;
+}
+
+.admin-images-group input {
+  width: 100% !important;
+  padding: 10px !important;
+  margin-bottom: 10px !important;
+  border: 1px solid #ddd !important;
+  border-radius: 5px !important;
+  background-color: white !important;
+}
+
+/* Botones del formulario */
+.admin-form-buttons {
+  display: flex !important;
+  gap: 10px !important;
+  margin-top: 20px !important;
+}
+
+.admin-btn-submit {
+  padding: 10px 20px !important;
+  background-color: #3498db !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 5px !important;
+  cursor: pointer !important;
+  font-size: 14px !important;
+}
+
+.admin-btn-cancel {
+  padding: 10px 20px !important;
+  background-color: #95a5a6 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 5px !important;
+  cursor: pointer !important;
+  font-size: 14px !important;
+}
+
+/* Lista de productos */
+.admin-products-title {
+  color: #2c3e50 !important;
+  font-size: 18px !important;
+  margin-bottom: 20px !important;
+  font-weight: bold !important;
+  background: transparent !important;
+}
+
+.admin-products-grid {
+  display: grid !important;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)) !important;
+  gap: 20px !important;
+}
+
+/* Tarjeta de producto */
+.admin-product-card {
+  background-color: white !important;
+  border-radius: 10px !important;
+  overflow: hidden !important;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1) !important;
+}
+
+.admin-product-card img {
+  width: 100% !important;
+  height: 200px !important;
+  object-fit: cover !important;
+}
+
+.admin-product-card-content {
+  padding: 15px !important;
+  background-color: white !important;
+}
+
+.admin-product-card-content h4 {
+  color: #2c3e50 !important;
+  font-size: 16px !important;
+  margin-bottom: 5px !important;
+  font-weight: bold !important;
+}
+
+.admin-product-card-content .price {
+  color: #666 !important;
+  font-size: 14px !important;
+  margin-bottom: 5px !important;
+}
+
+.admin-product-card-content .description {
+  color: #888 !important;
+  font-size: 12px !important;
+  margin-bottom: 15px !important;
+}
+
+.admin-product-card-buttons {
+  display: flex !important;
+  gap: 10px !important;
+}
+
+.admin-btn-edit {
+  flex: 1 !important;
+  padding: 8px !important;
+  background-color: #27ae60 !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 5px !important;
+  cursor: pointer !important;
+}
+
+.admin-btn-delete {
+  flex: 1 !important;
+  padding: 8px !important;
+  background-color: #e74c3c !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 5px !important;
+  cursor: pointer !important;
+}
+
+/* Login */
+.admin-login-container {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
+  bottom: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background-color: #f5f5f5 !important;
+  z-index: 999999 !important;
+}
+
+.admin-login-box {
+  background-color: white !important;
+  padding: 40px !important;
+  border-radius: 10px !important;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1) !important;
+  width: 100% !important;
+  max-width: 400px !important;
+}
+
+.admin-login-box h2 {
+  color: #2c3e50 !important;
+  font-size: 24px !important;
+  text-align: center !important;
+  margin-bottom: 30px !important;
+}
+
+.admin-login-box input {
+  width: 100% !important;
+  padding: 12px !important;
+  margin-bottom: 20px !important;
+  border: 1px solid #ddd !important;
+  border-radius: 5px !important;
+  font-size: 16px !important;
+  background-color: white !important;
+  color: #333 !important;
+  box-sizing: border-box !important;
+}
+
+.admin-login-box button {
+  width: 100% !important;
+  padding: 12px !important;
+  background-color: #3498db !important;
+  color: white !important;
+  border: none !important;
+  border-radius: 5px !important;
+  cursor: pointer !important;
+  font-size: 16px !important;
+}
+
+.admin-password-hint {
+  text-align: center !important;
+  margin-top: 20px !important;
+  font-size: 12px !important;
+  color: #666 !important;
+}
+
+/* Mensajes */
+.admin-message-success {
+  padding: 10px !important;
+  background-color: #d4edda !important;
+  color: #155724 !important;
+  border-radius: 5px !important;
+  margin-bottom: 20px !important;
+}
+
+.admin-message-error {
+  padding: 10px !important;
+  background-color: #f8d7da !important;
+  color: #721c24 !important;
+  border-radius: 5px !important;
+  margin-bottom: 20px !important;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .admin-form-grid {
+    grid-template-columns: 1fr !important;
+  }
+  .admin-products-grid {
+    grid-template-columns: 1fr !important;
+  }
+}
+
+/* FUERZA BRUTA - SOBREESCRIBE TODO */
+body,
+body:has(.admin-panel),
+body:has(.admin-panel) .admin-panel,
+.admin-panel,
+.admin-panel body,
+.admin-panel div,
+.admin-panel section,
+.admin-panel header,
+.admin-panel main,
+.admin-panel footer {
+  background-color: #f5f5f5 !important;
+}
+
+/* Bloquea específicamente el color crema */
+.admin-panel,
+body:has(.admin-panel) {
+  background-color: #f5f5f5 !important;
+}
+
+/* Elimina cualquier fondo crema */
+[style*="background-color: #F5EDE0"],
+[style*="backgroundColor: #F5EDE0"],
+[style*="background: #F5EDE0"] {
+  background-color: #f5f5f5 !important;
+}
