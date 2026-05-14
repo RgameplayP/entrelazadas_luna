@@ -1,4 +1,4 @@
-# Etapa 1: Construcción - USAR NODE 20
+# Etapa 1: Construcción
 FROM node:20-alpine as build
 
 WORKDIR /app
@@ -12,11 +12,12 @@ RUN npm run build
 # Etapa 2: Servir con nginx
 FROM nginx:alpine
 
+# Copiar la configuración personalizada de nginx
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
 # Copiar los archivos construidos
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# Exponer el puerto 80 (nginx)
 EXPOSE 80
 
-# Comando para iniciar nginx
 CMD ["nginx", "-g", "daemon off;"]
