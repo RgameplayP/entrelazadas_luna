@@ -1,5 +1,5 @@
-# Etapa 1: Construcción
-FROM node:18-alpine as build
+# Etapa 1: Construcción - USAR NODE 20
+FROM node:20-alpine as build
 
 WORKDIR /app
 
@@ -15,7 +15,8 @@ FROM nginx:alpine
 # Copiar los archivos construidos
 COPY --from=build /app/dist /usr/share/nginx/html
 
-# Exponer el puerto 80
+# Exponer el puerto 80 (nginx)
 EXPOSE 80
 
+# Comando para iniciar nginx
 CMD ["nginx", "-g", "daemon off;"]
