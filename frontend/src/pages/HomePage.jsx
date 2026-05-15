@@ -125,7 +125,7 @@ function HomePage() {
   const handleWhatsApp = (producto) => {
     const precioLimpio = producto.precio ? producto.precio.replace('€', '').trim() : producto.precio;
     const mensaje = `Hola, me interesa: ${producto.nombre} - ${precioLimpio} Bs`;
-    window.open(`https://wa.me/59170000000?text=${encodeURIComponent(mensaje)}`, '_blank');
+    window.open(`https://wa.me/59178745264?text=${encodeURIComponent(mensaje)}`, '_blank');
   };
 
   if (cargando) {
@@ -133,9 +133,7 @@ function HomePage() {
       <div style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: tema === 'dark' ? '#1a1a1a' : '#F5EDE0' }}>
         <div style={{ textAlign: 'center' }}>
           <div style={{ width: 'clamp(40px, 10vw, 60px)', height: 'clamp(40px, 10vw, 60px)', border: '3px solid #D4A843', borderTopColor: 'transparent', borderRadius: '50%', animation: 'spin 1s linear infinite', margin: '0 auto' }}></div>
-          <p style={{ marginTop: '20px', color: tema === 'dark' ? '#E8DCC8' : '#6B3E1B', fontSize: 'clamp(14px, 4vw, 16px)' }}>Cargando tesoros artesanales...</p>
-          <p style={{ marginTop: '10px', fontSize: 'clamp(11px, 3vw, 13px)', color: '#A0522D' }}>✨ La primera carga puede tardar unos segundos ✨</p>
-          <p style={{ marginTop: '5px', fontSize: 'clamp(10px, 3vw, 12px)', color: '#8B7355' }}>Las imágenes se optimizan automáticamente</p>
+          <p style={{ marginTop: '20px', color: tema === 'dark' ? '#E8DCC8' : '#6B3E1B', fontSize: 'clamp(14px, 4vw, 16px)' }}>Cargando...</p>
         </div>
       </div>
     );

@@ -29,7 +29,7 @@ function ProductDetail() {
   const handleWhatsApp = () => {
     const precioLimpio = producto?.precio ? producto.precio.replace('€', '').trim() : producto?.precio;
     const mensaje = `Hola, me interesa el producto: ${producto?.nombre} - ${precioLimpio} Bs`;
-    window.open(`https://wa.me/59170000000?text=${encodeURIComponent(mensaje)}`, '_blank');
+    window.open(`https://wa.me/59178745264?text=${encodeURIComponent(mensaje)}`, '_blank');
   };
 
   const siguienteImagen = () => {

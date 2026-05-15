@@ -55,7 +55,7 @@ function Footer() {
           fontSize: '18px',
           transition: 'color 0.3s ease'
         }}>
-          ✨ Hecho a mano en Bolivia con amor ✨
+           Hecho a mano en Bolivia con amor
         </p>
         <div style={{
           width: '100px',
@@ -66,7 +66,7 @@ function Footer() {
         }}></div>
         <div style={{ marginTop: '20px' }}>
           <a 
-            href="https://wa.me/59170000000" 
+            href="https://wa.me/59178745264" 
             target="_blank" 
             style={{
               color: '#F5EDE0',
@@ -99,7 +99,7 @@ function Footer() {
           opacity: 0.8,
           transition: 'color 0.3s ease'
         }}>
-          Entrelazadas de Luna - Piezas únicas hechas a mano con ❤️ en Bolivia
+          Entrelazadas de Luna - Piezas únicas
         </p>
       </div>
 
