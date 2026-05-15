@@ -5,7 +5,6 @@ function ThemeToggle() {
   const { tema, toggleTema } = useTheme();
   const checkboxRef = useRef(null);
 
-  // Sincronizar checkbox con el tema actual
   useEffect(() => {
     if (checkboxRef.current) {
       checkboxRef.current.checked = tema === 'dark';
@@ -34,7 +33,6 @@ function ThemeToggle() {
         />
         <div className="theme-slider">
           <div className="theme-sun-moon">
-            {/* Luna - Modo oscuro */}
             <svg className="moon-dot moon-dot-1" viewBox="0 0 100 100">
               <circle cx="50" cy="50" r="50" fill="#D4A843" />
             </svg>
@@ -45,7 +43,6 @@ function ThemeToggle() {
               <circle cx="50" cy="50" r="50" fill="#D4A843" />
             </svg>
             
-            {/* Rayos de sol - Modo claro */}
             <svg className="light-ray light-ray-1" viewBox="0 0 100 100">
               <circle cx="50" cy="50" r="50" fill="#6B3E1B" />
             </svg>
@@ -56,7 +53,6 @@ function ThemeToggle() {
               <circle cx="50" cy="50" r="50" fill="#6B3E1B" />
             </svg>
 
-            {/* Nubes */}
             <svg className="cloud-dark cloud-1" viewBox="0 0 100 100">
               <circle cx="50" cy="50" r="50" fill="#8B7355" />
             </svg>
@@ -77,7 +73,6 @@ function ThemeToggle() {
             </svg>
           </div>
           
-          {/* Estrellas */}
           <div className="theme-stars">
             <svg className="star star-1" viewBox="0 0 20 20">
               <path d="M 0 10 C 10 10,10 10 ,0 10 C 10 10 , 10 10 , 10 20 C 10 10 , 10 10 , 20 10 C 10 10 , 10 10 , 10 0 C 10 10,10 10 ,0 10 Z" fill="#FFD700" />
@@ -149,7 +144,6 @@ function ThemeToggle() {
           box-shadow: 0 1px 4px rgba(0,0,0,0.3);
         }
 
-        /* Elementos decorativos */
         .moon-dot, .light-ray, .cloud-dark, .cloud-light {
           position: absolute;
           transition: opacity 0.3s ease;
@@ -177,7 +171,6 @@ function ThemeToggle() {
           opacity: 1;
         }
 
-        /* Posiciones de los elementos */
         .moon-dot-1 { left: 10px; top: 3px; width: 6px; height: 6px; }
         .moon-dot-2 { left: 2px; top: 10px; width: 10px; height: 10px; }
         .moon-dot-3 { left: 16px; top: 18px; width: 4px; height: 4px; }
@@ -196,7 +189,6 @@ function ThemeToggle() {
         input:checked + .theme-slider .cloud-dark { opacity: 0; }
         input:checked + .theme-slider .cloud-light { opacity: 0.25; }
 
-        /* Estrellas */
         .theme-stars {
           position: absolute;
           top: 0;
@@ -224,6 +216,27 @@ function ThemeToggle() {
         .star-2 { width: 6px; top: 16px; left: 5px; animation-delay: 0s; }
         .star-3 { width: 12px; top: 20px; left: 12px; animation-delay: 0.6s; }
         .star-4 { width: 18px; top: 0px; left: 20px; animation-delay: 1.3s; }
+
+        /* ===== RESPONSIVE PARA MÓVIL ===== */
+        @media (max-width: 768px) {
+          .theme-switch {
+            width: 50px !important;
+            height: 28px !important;
+          }
+          .theme-sun-moon {
+            height: 22px !important;
+            width: 22px !important;
+            left: 3px !important;
+            bottom: 3px !important;
+          }
+          input:checked + .theme-slider .theme-sun-moon {
+            transform: translateX(22px) !important;
+          }
+          /* Ocultar elementos decorativos en móvil para mejor rendimiento */
+          .moon-dot, .light-ray, .cloud-dark, .cloud-light, .star {
+            display: none;
+          }
+        }
 
         @keyframes cloud-move {
           0% { transform: translateX(0px); }

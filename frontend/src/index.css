@@ -116,11 +116,44 @@ body.dark-mode .features-badge {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* Responsive para móvil */
+/* ===== OPTIMIZACIONES DE RENDIMIENTO ===== */
+
+/* Lazy loading y optimización de imágenes */
+img {
+  content-visibility: auto;
+  contain: paint;
+  max-width: 100%;
+  height: auto;
+}
+
+/* Prevenir layout shift en imágenes */
+.product-card img,
+.product-card .card__image {
+  aspect-ratio: 1/1;
+  width: 100%;
+  height: auto;
+}
+
+/* Reducir animaciones si el usuario prefiere */
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Optimización para móvil */
 @media (max-width: 768px) {
   .artisan-btn {
     padding: 10px 16px;
     font-size: 14px;
+  }
+  
+  /* Scroll suave pero sin lag en móvil */
+  * {
+    -webkit-tap-highlight-color: transparent;
   }
 }
 

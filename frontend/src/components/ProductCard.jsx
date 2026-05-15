@@ -6,9 +6,7 @@ function ProductCard({ producto, onConsultar }) {
   const { tema } = useTheme();
 
   const handleVerMas = () => {
-    // Navegar a la página del producto
     navigate(`/producto/${producto.id}`);
-    // Hacer scroll hacia arriba después de la navegación
     setTimeout(() => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }, 100);
@@ -16,12 +14,22 @@ function ProductCard({ producto, onConsultar }) {
 
   const precioLimpio = producto.precio ? producto.precio.replace('€', '').trim() : producto.precio;
 
-  // Colores según el tema
   const cardBg = tema === 'dark' ? '#2a1f1a' : '#ffffff';
   const cardAccent = tema === 'dark' ? '#D4A843' : '#6B3E1B';
   const cardText = tema === 'dark' ? '#E8DCC8' : '#1e293b';
   const imageBg = tema === 'dark' ? '#1a1210' : '#FAF0E6';
   const badgeBg = '#10b981';
+
+  // Optimizar URL de imagen con Cloudinary
+  const optimizarImagen = (url) => {
+    if (!url) return 'https://via.placeholder.com/400x400?text=Producto';
+    if (url.includes('cloudinary.com')) {
+      return url.replace('/upload/', '/upload/q_auto,f_auto,w_400/');
+    }
+    return url;
+  };
+
+  const imagenOptimizada = optimizarImagen(producto.imagenes[0]);
 
   return (
     <div
@@ -58,7 +66,6 @@ function ProductCard({ producto, onConsultar }) {
         e.currentTarget.style.borderColor = tema === 'dark' ? 'rgba(212, 168, 67, 0.2)' : 'rgba(107, 62, 27, 0.1)';
       }}
     >
-      {/* Efecto shine */}
       <div
         className="card__shine"
         style={{
@@ -71,7 +78,6 @@ function ProductCard({ producto, onConsultar }) {
         }}
       />
       
-      {/* Efecto glow */}
       <div
         className="card__glow"
         style={{
@@ -85,7 +91,6 @@ function ProductCard({ producto, onConsultar }) {
       />
 
       <div className="card__content" style={{ padding: '1.25em', height: '100%', display: 'flex', flexDirection: 'column', gap: '0.75em', position: 'relative', zIndex: 2 }}>
-        {/* Badge "NUEVO" (opcional) */}
         <div className="card__badge" style={{
           position: 'absolute',
           top: '12px',
@@ -104,7 +109,7 @@ function ProductCard({ producto, onConsultar }) {
           NUEVO
         </div>
 
-        {/* Imagen del producto - MÁS GRANDE */}
+        {/* Imagen optimizada con placeholder y lazy loading */}
         <div
           className="card__image"
           style={{
@@ -120,22 +125,57 @@ function ProductCard({ producto, onConsultar }) {
             justifyContent: 'center'
           }}
         >
+          {/* Placeholder de carga */}
+          <div className="image-placeholder" style={{
+            position: 'absolute',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: imageBg,
+            zIndex: 1
+          }}>
+            <div style={{
+              width: '30px',
+              height: '30px',
+              border: '2px solid #D2B48C',
+              borderTopColor: 'transparent',
+              borderRadius: '50%',
+              animation: 'spin 1s linear infinite'
+            }}></div>
+          </div>
           <img
-            src={producto.imagenes[0]}
+            src={imagenOptimizada}
             alt={producto.nombre}
+            loading="lazy"
+            decoding="async"
             style={{
               width: '100%',
               height: '100%',
               objectFit: 'contain',
               transition: 'transform 0.5s ease',
-              padding: '10px'
+              padding: '10px',
+              position: 'relative',
+              zIndex: 2,
+              opacity: 0
             }}
             onClick={handleVerMas}
-            onError={(e) => e.target.src = 'https://via.placeholder.com/400x400?text=Producto'}
+            onError={(e) => {
+              e.target.src = 'https://via.placeholder.com/400x400?text=Producto';
+              e.target.previousSibling.style.display = 'none';
+            }}
+            onLoad={(e) => {
+              e.target.style.opacity = '1';
+              if (e.target.previousSibling) {
+                e.target.previousSibling.style.display = 'none';
+              }
+            }}
           />
         </div>
 
-        {/* Texto del producto */}
         <div className="card__text" style={{ display: 'flex', flexDirection: 'column', gap: '0.5em' }}>
           <p className="card__title" style={{
             color: cardText,
@@ -159,10 +199,9 @@ function ProductCard({ producto, onConsultar }) {
           </p>
         </div>
 
-        {/* Footer con precio y botón */}
         <div className="card__footer" style={{
           display: 'flex',
-          justifyContent: 'span-between',
+          justifyContent: 'space-between',
           alignItems: 'center',
           marginTop: 'auto',
           paddingTop: '10px'
@@ -212,9 +251,8 @@ function ProductCard({ producto, onConsultar }) {
           transform: scale(1);
           opacity: 1;
         }
-        .product-card:hover .card__image {
+        .product-card:hover .card__image img {
           transform: translateY(-5px) scale(1.03);
-          box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
         }
         .product-card:hover .card__title {
           color: var(--card-accent);
@@ -246,6 +284,10 @@ function ProductCard({ producto, onConsultar }) {
           0% { transform: scale(1); }
           50% { transform: scale(1.2); }
           100% { transform: scale(1); }
+        }
+        @keyframes spin {
+          from { transform: rotate(0deg); }
+          to { transform: rotate(360deg); }
         }
       `}</style>
     </div>

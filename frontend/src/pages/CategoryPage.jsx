@@ -9,7 +9,6 @@ function CategoryPage() {
   const [filteredProducts, setFilteredProducts] = useState([]);
   const [cargando, setCargando] = useState(true);
   
-  // Capitalizar para mostrar
   let categoryCapitalized = '';
   if (categoryName === 'todos') {
     categoryCapitalized = 'Todos los Productos';
@@ -24,10 +23,8 @@ function CategoryPage() {
       .then(data => {
         let filtered;
         if (categoryName === 'todos') {
-          // Mostrar todos los productos
           filtered = data;
         } else {
-          // Filtrar por categoría
           filtered = data.filter(p => p.categoria.toLowerCase() === categoryName.toLowerCase());
         }
         setFilteredProducts(filtered);
@@ -47,25 +44,25 @@ function CategoryPage() {
 
   if (cargando) {
     return (
-      <div style={{ textAlign: 'center', padding: '40px', backgroundColor: tema === 'dark' ? '#1a1a1a' : '#F5F0E8' }}>
-        <div style={{ width: '40px', height: '40px', border: '3px solid #8B5A2B', borderTopColor: 'transparent', borderRadius: '50%', animation: 'spin 1s linear infinite', margin: '0 auto' }}></div>
+      <div style={{ textAlign: 'center', padding: 'clamp(20px, 10vw, 40px)', backgroundColor: tema === 'dark' ? '#1a1a1a' : '#F5F0E8' }}>
+        <div style={{ width: 'clamp(30px, 8vw, 40px)', height: 'clamp(30px, 8vw, 40px)', border: '3px solid #8B5A2B', borderTopColor: 'transparent', borderRadius: '50%', animation: 'spin 1s linear infinite', margin: '0 auto' }}></div>
       </div>
     );
   }
 
   return (
-    <div style={{ padding: '30px 20px', maxWidth: '1400px', margin: '0 auto', backgroundColor: tema === 'dark' ? '#1a1a1a' : '#F5F0E8', minHeight: '70vh' }}>
-      <h2 style={{ textAlign: 'center', color: tema === 'dark' ? '#FFD700' : '#5C3A1E', fontSize: '32px', marginBottom: '30px', fontFamily: 'Georgia, serif' }}>
+    <div style={{ padding: 'clamp(15px, 5vw, 30px) clamp(15px, 4vw, 20px)', maxWidth: '1400px', margin: '0 auto', backgroundColor: tema === 'dark' ? '#1a1a1a' : '#F5F0E8', minHeight: '70vh' }}>
+      <h2 style={{ textAlign: 'center', color: tema === 'dark' ? '#FFD700' : '#5C3A1E', fontSize: 'clamp(20px, 6vw, 32px)', marginBottom: 'clamp(15px, 5vw, 30px)', fontFamily: 'Georgia, serif' }}>
         {categoryCapitalized}
       </h2>
       
       {filteredProducts.length === 0 ? (
-        <p style={{ textAlign: 'center', padding: '40px', color: tema === 'dark' ? '#aaa' : '#666' }}>No hay productos en esta categoría.</p>
+        <p style={{ textAlign: 'center', padding: 'clamp(20px, 10vw, 40px)', color: tema === 'dark' ? '#aaa' : '#666', fontSize: 'clamp(14px, 4vw, 16px)' }}>No hay productos en esta categoría.</p>
       ) : (
         <div style={{
           display: 'grid',
-          gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))',
-          gap: '30px',
+          gridTemplateColumns: 'repeat(auto-fill, minmax(clamp(260px, 40vw, 320px), 1fr))',
+          gap: 'clamp(15px, 4vw, 30px)',
           justifyItems: 'center'
         }}>
           {filteredProducts.map(producto => (
@@ -77,12 +74,6 @@ function CategoryPage() {
         @keyframes spin {
           from { transform: rotate(0deg); }
           to { transform: rotate(360deg); }
-        }
-        @media (max-width: 768px) {
-          div[style*="gridTemplateColumns"] {
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important;
-            gap: 20px !important;
-          }
         }
       `}</style>
     </div>
