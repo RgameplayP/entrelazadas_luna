@@ -231,8 +231,63 @@ function ProductDetail() {
               
               {producto.imagenes && producto.imagenes.length > 1 && (
                 <>
-                  <button onClick={anteriorImagen} style={{ position: 'absolute', left: '10px', top: '50%', transform: 'translateY(-50%)', backgroundColor: 'rgba(0,0,0,0.6)', color: 'white', border: 'none', borderRadius: '50%', width: 'clamp(30px, 8vw, 40px)', height: 'clamp(30px, 8vw, 40px)', cursor: 'pointer', fontSize: 'clamp(16px, 5vw, 20px)' }}>◀</button>
-                  <button onClick={siguienteImagen} style={{ position: 'absolute', right: '10px', top: '50%', transform: 'translateY(-50%)', backgroundColor: 'rgba(0,0,0,0.6)', color: 'white', border: 'none', borderRadius: '50%', width: 'clamp(30px, 8vw, 40px)', height: 'clamp(30px, 8vw, 40px)', cursor: 'pointer', fontSize: 'clamp(16px, 5vw, 20px)' }}>▶</button>
+                  {/* Botón anterior - SVG profesional */}
+                  <button 
+                    onClick={anteriorImagen} 
+                    style={{
+                      position: 'absolute',
+                      left: '15px',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      backgroundColor: 'rgba(0,0,0,0.6)',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '50%',
+                      width: 'clamp(35px, 8vw, 45px)',
+                      height: 'clamp(35px, 8vw, 45px)',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      transition: 'all 0.2s ease',
+                      zIndex: 10
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.8)'}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.6)'}
+                  >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="15 18 9 12 15 6"></polyline>
+                    </svg>
+                  </button>
+                  
+                  {/* Botón siguiente - SVG profesional */}
+                  <button 
+                    onClick={siguienteImagen} 
+                    style={{
+                      position: 'absolute',
+                      right: '15px',
+                      top: '50%',
+                      transform: 'translateY(-50%)',
+                      backgroundColor: 'rgba(0,0,0,0.6)',
+                      color: 'white',
+                      border: 'none',
+                      borderRadius: '50%',
+                      width: 'clamp(35px, 8vw, 45px)',
+                      height: 'clamp(35px, 8vw, 45px)',
+                      cursor: 'pointer',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      transition: 'all 0.2s ease',
+                      zIndex: 10
+                    }}
+                    onMouseEnter={(e) => e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.8)'}
+                    onMouseLeave={(e) => e.currentTarget.style.backgroundColor = 'rgba(0,0,0,0.6)'}
+                  >
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <polyline points="9 18 15 12 9 6"></polyline>
+                    </svg>
+                  </button>
                 </>
               )}
             </div>
@@ -378,8 +433,16 @@ function ProductDetail() {
             <button onClick={() => setModalAbierto(false)} style={{ position: 'absolute', top: '15px', right: '15px', backgroundColor: 'white', border: 'none', borderRadius: '50%', width: 'clamp(35px, 10vw, 45px)', height: 'clamp(35px, 10vw, 45px)', cursor: 'pointer', fontSize: 'clamp(16px, 5vw, 20px)' }}>✕</button>
             {producto.imagenes && producto.imagenes.length > 1 && (
               <>
-                <button onClick={(e) => { e.stopPropagation(); anteriorImagen(); }} style={{ position: 'absolute', left: '15px', top: '50%', transform: 'translateY(-50%)', backgroundColor: 'rgba(255,255,255,0.2)', color: 'white', border: 'none', borderRadius: '50%', width: 'clamp(35px, 10vw, 50px)', height: 'clamp(35px, 10vw, 50px)', cursor: 'pointer', fontSize: 'clamp(18px, 5vw, 24px)' }}>◀</button>
-                <button onClick={(e) => { e.stopPropagation(); siguienteImagen(); }} style={{ position: 'absolute', right: '15px', top: '50%', transform: 'translateY(-50%)', backgroundColor: 'rgba(255,255,255,0.2)', color: 'white', border: 'none', borderRadius: '50%', width: 'clamp(35px, 10vw, 50px)', height: 'clamp(35px, 10vw, 50px)', cursor: 'pointer', fontSize: 'clamp(18px, 5vw, 24px)' }}>▶</button>
+                <button onClick={(e) => { e.stopPropagation(); anteriorImagen(); }} style={{ position: 'absolute', left: '15px', top: '50%', transform: 'translateY(-50%)', backgroundColor: 'rgba(255,255,255,0.2)', color: 'white', border: 'none', borderRadius: '50%', width: 'clamp(35px, 10vw, 50px)', height: 'clamp(35px, 10vw, 50px)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="15 18 9 12 15 6"></polyline>
+                  </svg>
+                </button>
+                <button onClick={(e) => { e.stopPropagation(); siguienteImagen(); }} style={{ position: 'absolute', right: '15px', top: '50%', transform: 'translateY(-50%)', backgroundColor: 'rgba(255,255,255,0.2)', color: 'white', border: 'none', borderRadius: '50%', width: 'clamp(35px, 10vw, 50px)', height: 'clamp(35px, 10vw, 50px)', cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                  <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <polyline points="9 18 15 12 9 6"></polyline>
+                  </svg>
+                </button>
               </>
             )}
             <img src={producto.imagenes && producto.imagenes[imagenActual]} alt={producto.nombre} style={{ maxWidth: '95%', maxHeight: '95%', objectFit: 'contain' }} onClick={(e) => e.stopPropagation()} />
