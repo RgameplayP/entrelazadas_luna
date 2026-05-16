@@ -68,7 +68,7 @@ function Header() {
           marginTop: '8px',
           transition: 'color 0.3s ease'
         }}>
-          Joyería artesanal en macramé - Bolivia
+          Bisuteria artesanal en macramé
         </p>
         <p style={{ 
           marginTop: '10px', 

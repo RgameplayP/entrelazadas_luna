@@ -239,8 +239,6 @@ function ProductDetail() {
 
             {/* Envío gratis */}
             <div style={{ backgroundColor: '#F5F0E8', padding: '15px', borderRadius: '10px', marginTop: '20px' }}>
-              <p>✨ Envío gratis en España desde 39€</p>
-              <p>🌍 Envío gratis internacional desde 79€</p>
             </div>
           </div>
         </div>
