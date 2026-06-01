@@ -28,11 +28,15 @@ function AdminPanel() {
 
   const cargarCategorias = async () => {
     try {
+      // 🔧 FIX: Definir API_URL dentro de esta función
+      const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+      console.log('🔍 Cargando categorías desde:', `${API_URL}/api/categorias`);
       const response = await fetch(`${API_URL}/api/categorias`);
       const data = await response.json();
+      console.log('✅ Categorías cargadas:', data);
       setCategorias(data);
     } catch (error) {
-      console.error('Error:', error);
+      console.error('❌ Error cargando categorías:', error);
     }
   };
 
@@ -54,7 +58,7 @@ function AdminPanel() {
         flexWrap: 'wrap',
         gap: '15px'
       }}>
-        <h2 style={{ margin: 0 }}>Panel de Administración - My Cuqui Shop</h2>
+        <h2 style={{ margin: 0 }}>Panel de Administración - Entrelazadas de Luna</h2>
         <button
           onClick={handleLogout}
           style={{
