@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+import ImageUploader from './ImageUploader';
+import { logger } from '../../utils/logger';
 
 function ProductForm({ productoEdit, categorias, onSave, onCancel }) {
   const [formData, setFormData] = useState({
@@ -7,7 +9,7 @@ function ProductForm({ productoEdit, categorias, onSave, onCancel }) {
     precio: '',
     descripcion: '',
     descripcion_larga: '',
-    imagenes: [''] // Comenzamos con un campo vacío
+    imagenes: []
   });
   const [cargando, setCargando] = useState(false);
   const [mensaje, setMensaje] = useState('');
@@ -15,12 +17,22 @@ function ProductForm({ productoEdit, categorias, onSave, onCancel }) {
   useEffect(() => {
     if (productoEdit) {
       setFormData({
-        nombre: productoEdit.nombre,
-        categoria_id: productoEdit.categoria_id,
-        precio: productoEdit.precio,
+        nombre: productoEdit.nombre || '',
+        categoria_id: productoEdit.categoria_id || '',
+        precio: productoEdit.precio || '',
         descripcion: productoEdit.descripcion || '',
         descripcion_larga: productoEdit.descripcion_larga || '',
-        imagenes: productoEdit.imagenes && productoEdit.imagenes.length ? [...productoEdit.imagenes] : ['']
+        imagenes: productoEdit.imagenes && Array.isArray(productoEdit.imagenes) ? [...productoEdit.imagenes] : []
+      });
+    } else {
+      // Resetear para nuevo producto
+      setFormData({
+        nombre: '',
+        categoria_id: '',
+        precio: '',
+        descripcion: '',
+        descripcion_larga: '',
+        imagenes: []
       });
     }
   }, [productoEdit]);
@@ -32,24 +44,40 @@ function ProductForm({ productoEdit, categorias, onSave, onCancel }) {
     });
   };
 
-  const handleImageChange = (index, value) => {
+  // Función para agregar URLs manualmente
+  const handleImageUrlChange = (index, value) => {
     const nuevasImagenes = [...formData.imagenes];
     nuevasImagenes[index] = value;
     setFormData({ ...formData, imagenes: nuevasImagenes });
   };
 
-  // Agregar nuevo campo de imagen
-  const agregarCampoImagen = () => {
+  // Agregar campo vacío para URL manual
+  const agregarCampoImagenUrl = () => {
     setFormData({
       ...formData,
       imagenes: [...formData.imagenes, '']
     });
   };
 
-  // Eliminar campo de imagen
-  const eliminarCampoImagen = (index) => {
-    if (formData.imagenes.length <= 1) return; // Mantener al menos 1 campo
+  // Eliminar URL manual
+  const eliminarCampoImagenUrl = (index) => {
     const nuevasImagenes = formData.imagenes.filter((_, i) => i !== index);
+    setFormData({ ...formData, imagenes: nuevasImagenes });
+  };
+
+  // Función para agregar imágenes subidas desde ImageUploader
+  const agregarImagenesSubidas = (nuevasUrls) => {
+    // Filtrar URLs vacías
+    const imagenesActuales = formData.imagenes.filter(img => img && img.trim() !== '');
+    // Agregar nuevas URLs
+    setFormData({
+      ...formData,
+      imagenes: [...imagenesActuales, ...nuevasUrls]
+    });
+  };
+
+  // Actualizar el orden de las imágenes
+  const actualizarOrdenImagenes = (nuevasImagenes) => {
     setFormData({ ...formData, imagenes: nuevasImagenes });
   };
 
@@ -58,10 +86,11 @@ function ProductForm({ productoEdit, categorias, onSave, onCancel }) {
     setCargando(true);
     setMensaje('');
 
-    const imagenesFiltradas = formData.imagenes.filter(img => img.trim() !== '');
+    // Filtrar URLs vacías o undefined
+    const imagenesFiltradas = formData.imagenes.filter(img => img && img.trim() !== '');
 
     if (imagenesFiltradas.length === 0) {
-      setMensaje('❌ Agrega al menos una URL de imagen');
+      setMensaje('❌ Agrega al menos una imagen');
       setCargando(false);
       return;
     }
@@ -104,18 +133,18 @@ function ProductForm({ productoEdit, categorias, onSave, onCancel }) {
               precio: '',
               descripcion: '',
               descripcion_larga: '',
-              imagenes: ['']
+              imagenes: []
             });
           }
           onSave();
         }, 1500);
       } else {
         const error = await response.text();
-        console.error('Error respuesta:', error);
+        logger.error('Error respuesta:', error);
         setMensaje('❌ Error al guardar el producto');
       }
     } catch (error) {
-      console.error('Error:', error);
+      logger.error('Error:', error);
       setMensaje('❌ Error de conexión');
     }
     setCargando(false);
@@ -179,11 +208,11 @@ function ProductForm({ productoEdit, categorias, onSave, onCancel }) {
         />
       </div>
 
-      {/* URLs de Imágenes DINÁMICAS */}
+      {/* URLs de Imágenes Manuales */}
       <div style={{ marginTop: '20px' }}>
-        <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>URLs de Imágenes</label>
+        <label style={{ display: 'block', marginBottom: '5px', fontWeight: 'bold' }}>URLs de Imágenes (opcional)</label>
         <p style={{ fontSize: '12px', color: '#666', marginBottom: '10px' }}>
-          💡 Usa Cloudinary o cualquier servicio de imágenes. Puedes agregar cuantas quieras.
+          💡 Puedes pegar URLs de imágenes existentes o usar el área de abajo para subir nuevas.
         </p>
         
         {formData.imagenes.map((url, index) => (
@@ -191,32 +220,30 @@ function ProductForm({ productoEdit, categorias, onSave, onCancel }) {
             <input 
               type="url" 
               placeholder={`URL de imagen ${index + 1}`} 
-              value={url} 
-              onChange={(e) => handleImageChange(index, e.target.value)} 
+              value={url || ''} 
+              onChange={(e) => handleImageUrlChange(index, e.target.value)} 
               style={{ flex: 1, padding: '10px', border: '1px solid #D2B48C', borderRadius: '8px' }} 
             />
-            {formData.imagenes.length > 1 && (
-              <button
-                type="button"
-                onClick={() => eliminarCampoImagen(index)}
-                style={{
-                  padding: '8px 12px',
-                  backgroundColor: '#f44336',
-                  color: 'white',
-                  border: 'none',
-                  borderRadius: '8px',
-                  cursor: 'pointer'
-                }}
-              >
-                ✕
-              </button>
-            )}
+            <button
+              type="button"
+              onClick={() => eliminarCampoImagenUrl(index)}
+              style={{
+                padding: '8px 12px',
+                backgroundColor: '#f44336',
+                color: 'white',
+                border: 'none',
+                borderRadius: '8px',
+                cursor: 'pointer'
+              }}
+            >
+              ✕
+            </button>
           </div>
         ))}
         
         <button
           type="button"
-          onClick={agregarCampoImagen}
+          onClick={agregarCampoImagenUrl}
           style={{
             marginTop: '10px',
             padding: '8px 16px',
@@ -230,12 +257,16 @@ function ProductForm({ productoEdit, categorias, onSave, onCancel }) {
             gap: '8px'
           }}
         >
-          + Agregar otra imagen
+          + Agregar URL manual
         </button>
-        <p style={{ fontSize: '11px', color: '#999', marginTop: '8px' }}>
-          Puedes agregar tantas imágenes como quieras
-        </p>
       </div>
+
+      {/* Componente de subida DIRECTA de imágenes */}
+      <ImageUploader
+        imagenes={formData.imagenes.filter(img => img && img.trim() !== '')}
+        onImagesUploaded={agregarImagenesSubidas}
+        onOrderChange={actualizarOrdenImagenes}
+      />
 
       <div style={{ display: 'flex', gap: '10px', marginTop: '20px' }}>
         <button type="submit" disabled={cargando} style={{ padding: '12px 24px', backgroundColor: '#8B5A2B', color: 'white', border: 'none', borderRadius: '8px', cursor: 'pointer' }}>
