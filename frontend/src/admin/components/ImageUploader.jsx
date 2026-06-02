@@ -95,8 +95,7 @@ function ImageUploader({ imagenes = [], onImagesUploaded, onOrderChange }) {
   };
 
   // Eliminar imagen
-  const removeImage = (index, e) => {
-    e.stopPropagation();
+  const removeImage = (index) => {
     const nuevasImagenes = imagenesLocales.filter((_, i) => i !== index);
     setImagenesLocales(nuevasImagenes);
     if (onOrderChange) {
@@ -200,7 +199,7 @@ function ImageUploader({ imagenes = [], onImagesUploaded, onOrderChange }) {
   );
 }
 
-// COMPONENTE CON SOPORTE PARA MÓVIL Y PC
+// COMPONENTE CON SOPORTE PARA MÓVIL Y PC - CORREGIDO
 function DraggableImage({ url, index, isFirst, onMove, onRemove }) {
   const [dragIndex, setDragIndex] = useState(null);
   const [touchStartIndex, setTouchStartIndex] = useState(null);
@@ -235,7 +234,12 @@ function DraggableImage({ url, index, isFirst, onMove, onRemove }) {
 
   // ========== EVENTOS PARA MÓVIL (TOUCH) ==========
   const handleTouchStart = (e) => {
-    e.preventDefault();
+    // Verificar si el toque fue en el botón
+    const target = e.target;
+    if (target.tagName === 'BUTTON' || target.closest('button')) {
+      return; // No hacer nada si tocó el botón
+    }
+    
     const element = e.currentTarget;
     
     // Cambiar cursor visual
@@ -248,7 +252,7 @@ function DraggableImage({ url, index, isFirst, onMove, onRemove }) {
       element.style.opacity = '0.5';
       element.style.transform = 'scale(0.95)';
       
-      // Vibrar si el dispositivo lo soporta (opcional)
+      // Vibrar si el dispositivo lo soporta
       if (navigator.vibrate) {
         navigator.vibrate(100);
       }
@@ -271,7 +275,7 @@ function DraggableImage({ url, index, isFirst, onMove, onRemove }) {
         const targetIndex = parseInt(elementoImagen.dataset.index);
         if (!isNaN(targetIndex) && targetIndex !== touchStartIndex) {
           onMove(touchStartIndex, targetIndex);
-          setTouchStartIndex(targetIndex); // Actualizar para seguir moviendo
+          setTouchStartIndex(targetIndex);
           break;
         }
       }
@@ -279,8 +283,6 @@ function DraggableImage({ url, index, isFirst, onMove, onRemove }) {
   };
 
   const handleTouchEnd = (e) => {
-    e.preventDefault();
-    
     // Limpiar timer
     if (longPressTimer) {
       clearTimeout(longPressTimer);
@@ -293,6 +295,19 @@ function DraggableImage({ url, index, isFirst, onMove, onRemove }) {
     element.style.transform = 'scale(1)';
     
     setTouchStartIndex(null);
+  };
+
+  // ========== MANEJADOR DEL BOTÓN ELIMINAR ==========
+  const handleRemoveClick = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    onRemove(index);
+  };
+
+  const handleRemoveTouch = (e) => {
+    e.stopPropagation();
+    e.preventDefault();
+    onRemove(index);
   };
 
   return (
@@ -319,8 +334,8 @@ function DraggableImage({ url, index, isFirst, onMove, onRemove }) {
         backgroundColor: '#f5f5f5',
         transition: 'all 0.2s ease',
         boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-        touchAction: 'none', // Importante para móvil
-        userSelect: 'none',   // Evita selección de texto
+        touchAction: 'pan-y', // Permite scroll vertical
+        userSelect: 'none',
         WebkitTapHighlightColor: 'transparent'
       }}
     >
@@ -336,7 +351,11 @@ function DraggableImage({ url, index, isFirst, onMove, onRemove }) {
       />
       <button
         type="button"
-        onClick={(e) => onRemove(index, e)}
+        onClick={handleRemoveClick}
+        onTouchStart={handleRemoveTouch}
+        onTouchEnd={(e) => {
+          e.stopPropagation();
+        }}
         style={{
           position: 'absolute',
           top: '5px',
@@ -345,14 +364,17 @@ function DraggableImage({ url, index, isFirst, onMove, onRemove }) {
           color: 'white',
           border: 'none',
           borderRadius: '50%',
-          width: '26px',
-          height: '26px',
+          width: '32px',
+          height: '32px',
           cursor: 'pointer',
-          fontSize: '14px',
+          fontSize: '16px',
+          fontWeight: 'bold',
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          zIndex: 10
+          zIndex: 20,
+          touchAction: 'manipulation',
+          pointerEvents: 'auto'
         }}
       >
         ✕
@@ -368,7 +390,8 @@ function DraggableImage({ url, index, isFirst, onMove, onRemove }) {
           borderRadius: '6px',
           fontSize: '11px',
           fontWeight: 'bold',
-          zIndex: 10
+          zIndex: 10,
+          pointerEvents: 'none'
         }}>
           ★ Principal
         </div>
