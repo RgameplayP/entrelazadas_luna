@@ -56,10 +56,13 @@ function ProductForm({ productoEdit, categorias, onSave, onCancel }) {
 
     console.log('Enviando producto:', producto);
 
+    // 🔧 FIX: Definir API_URL antes del try
+    const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
+    console.log('API_URL:', API_URL);
+
     try {
       let response;
       if (productoEdit) {
-        const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5001';
         response = await fetch(`${API_URL}/api/productos/${productoEdit.id}`, {
           method: 'PUT',
           headers: { 'Content-Type': 'application/json' },
